@@ -1518,6 +1518,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7888632906020332665, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
   m_PrefabInstance: {fileID: 1374705618}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1259155927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259155923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b654f6d6d1fe36478a7684f47e0cc09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: Level2
 --- !u!1 &1291390209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1848,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 8130790895635386922, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130790895635386922, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.62
+      objectReference: {fileID: 0}
     - target: {fileID: 8930521840411979450, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1902,6 +1923,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7102126753215975672, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2012767656}
+    - targetCorrespondingSourceObject: {fileID: 7888632906020332665, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1259155927}
   m_SourcePrefab: {fileID: 100100000, guid: 42aec571ca743b744829c9e2cf58375a, type: 3}
 --- !u!1001 &1473337332
 PrefabInstance:
