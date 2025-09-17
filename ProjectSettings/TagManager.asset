@@ -10,7 +10,7 @@ TagManager:
   - CrystalVert
   - Caisse
   - BlackHole
-  - BoxBlocker
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -47,6 +47,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Box
+    uniqueID: 1624809191
     locked: 0
   m_RenderingLayers:
   - Default

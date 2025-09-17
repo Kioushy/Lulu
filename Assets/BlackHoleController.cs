@@ -1,83 +1,93 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BlackHoleController : MonoBehaviour
 {
-    public Transform respawnPoint;          // Point de respawn
-    public SpriteRenderer holeSprite;       // Sprite noir du trou
-    public SpriteRenderer coverSprite;      // Sprite  afficher quand le trou est couvert
+    [Header("Sprites")]
+    public SpriteRenderer holeSprite;    // sprite du trou (invisible au départ)
+    public SpriteRenderer coverSprite;   // sprite "vue de dessus" quand le trou est bouché
 
-    private bool isCovered = false;         // Si le trou est securise
-    private bool activated = false;         // Si le trou a déjà été activé par player/crystal
-    private Collider2D holeCollider;
+    [Header("Respawn")]
+    public Transform respawnPoint;       // où renvoyer le player
+
+    [Header("Cover settings")]
+    [Range(0.5f, 1f)]
+    public float coverThreshold = 0.9f;  // % du trou à couvrir pour valider (0.9 = 90%)
+
+    bool isRevealed = false;
+    bool isCovered = false;
+    Collider2D holeCollider;
 
     void Start()
     {
-        if (holeSprite != null)
-            holeSprite.enabled = false;      // on ne voit pas le trou au départ
-        if (coverSprite != null)
-            coverSprite.enabled = false;    // couverture invisible au depart
+        if (holeSprite != null) holeSprite.enabled = false;
+        if (coverSprite != null) coverSprite.enabled = false;
 
         holeCollider = GetComponent<Collider2D>();
+        if (holeCollider == null)
+            Debug.LogError("[BlackHole] No Collider2D found on hole object. Add one and set IsTrigger = true.");
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (isCovered) return;
 
-        // V�rifie si c'est une box
-        if (collision.CompareTag("BoxBlocker"))
+        // Player : révéler le trou et respawn
+        if (other.CompareTag("Player"))
         {
-            Collider2D boxCollider = collision.GetComponent<Collider2D>();
-            if (boxCollider != null)
+            if (!isRevealed && holeSprite != null)
             {
-                // V�rifie si la box recouvre compl�tement le trou
-                if (holeCollider.bounds.Intersects(boxCollider.bounds))
-                {
-                    // Ici on peut ajouter un offset pour s'assurer que la box couvre bien
-                    float coverage = Mathf.Min(
-                        holeCollider.bounds.max.x - boxCollider.bounds.min.x,
-                        boxCollider.bounds.max.x - holeCollider.bounds.min.x
-                    );
+                holeSprite.enabled = true;
+                isRevealed = true;
+            }
 
-                    // Pour simplifier, si les bounds intersectent suffisamment on consid�re le trou couvert
-                    // On peut affiner avec des ratios si n�cessaire
-                    if (coverage > 0)
-                    {
-                        isCovered = true;
-
-                        // Affiche le sprite �couvercle�
-                        if (coverSprite != null)
-                            coverSprite.enabled = true;
-
-                        // Supprime la box
-                        Destroy(collision.gameObject);
-                    }
-                }
+            if (respawnPoint != null)
+            {
+                other.transform.position = respawnPoint.position;
+                Rigidbody2D rb = other.attachedRigidbody;
+                if (rb != null) rb.linearVelocity = Vector2.zero;
             }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (isCovered) return; // trou bouché
+        if (isCovered) return;
 
-        // Player ou Crystal tombe dans le trou
-        if (collision.CompareTag("Player") || collision.CompareTag("CrystalVert"))
+        // Box : on teste recouvrement progressif
+        if (other.CompareTag("Box"))
         {
-           // Active le trou visuellement si pas déjà
-            if (!activated && holeSprite != null)
+            if (holeCollider == null) return;
+
+            Bounds hb = holeCollider.bounds;
+            Bounds bb = other.bounds;
+
+            // intersection rectangle
+            float xMin = Mathf.Max(hb.min.x, bb.min.x);
+            float xMax = Mathf.Min(hb.max.x, bb.max.x);
+            float yMin = Mathf.Max(hb.min.y, bb.min.y);
+            float yMax = Mathf.Min(hb.max.y, bb.max.y);
+
+            float overlapW = Mathf.Max(0f, xMax - xMin);
+            float overlapH = Mathf.Max(0f, yMax - yMin);
+            float overlapArea = overlapW * overlapH;
+
+            float holeArea = hb.size.x * hb.size.y;
+            float coverage = holeArea > 0f ? overlapArea / holeArea : 0f;
+
+            // debug utile pour voir pourquoi ça ne valide pas
+            Debug.Log($"[BlackHole] coverage={coverage:F2} (overlap={overlapArea:F3}, holeArea={holeArea:F3}) for box {other.gameObject.name}");
+
+            if (coverage >= coverThreshold)
             {
-                holeSprite.enabled = true;
-                activated = true;
+                // validé : on bouche le trou
+                isCovered = true;
+
+                if (coverSprite != null) coverSprite.enabled = true;
+                if (holeSprite != null) holeSprite.enabled = false;
+
+                // détruire la box (ou SetActive(false) si tu préfères)
+                Destroy(other.gameObject);
             }
-
-            // Respawn player/crystal
-            Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
-            if (rb != null)
-                rb.linearVelocity = Vector2.zero;
-
-            collision.transform.position = respawnPoint.position;
         }
     }
 }
