@@ -9,6 +9,8 @@ TagManager:
   - Block
   - CrystalVert
   - Caisse
+  - BlackHole
+  - BoxBlocker
   layers:
   - Default
   - TransparentFX
