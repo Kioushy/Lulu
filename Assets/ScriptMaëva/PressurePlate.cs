@@ -51,4 +51,8 @@ public class PressurePlateWithDoorSprite : MonoBehaviour
             }
         }
     }
+    public bool IsOccupied()
+    {
+        return blockCount > 0;
+    }
 }
