@@ -11,7 +11,14 @@ public class TriggerObject : MonoBehaviour
     {
         // "OnTriggerEnterEvent?" est équivaux a écrire if(OnTriggerEnterEvent != null) {...} 
         // On fait cette verification car unity enveras une érreur si on essaye d'appeler l'event alors que rien c'est lier a l'event
-        OnTriggerEnterEvent?.Invoke(collision.gameObject);
+        if (collision.CompareTag("CrystalVert"))
+        {
+            Debug.Log("Collision avec CrystalVert");
+            OnTriggerEnterEvent?.Invoke(collision.gameObject); 
+        }
+        else Debug.Log($"Collision avec {collision}");
+
+
     }
 
     void OnTriggerExit2D(Collider2D collision)
