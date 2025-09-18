@@ -15,6 +15,7 @@ public class PressurePlateWithDoorSprite : MonoBehaviour
     private SpriteRenderer srDoor;
     private int blockCount = 0;
 
+
     void Start()
     {
         srPlate = GetComponent<SpriteRenderer>();
