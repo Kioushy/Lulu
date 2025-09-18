@@ -35,7 +35,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: GobeletGreen
+    m_ConditionEvent: Torch
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5718462869913869945}
@@ -60,7 +60,7 @@ AnimatorController:
   m_Name: Torch
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: GobeletGreen
+  - m_Name: Torch
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

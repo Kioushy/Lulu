@@ -12,6 +12,19 @@ public class BraseroController : MonoBehaviour
 
     private bool activated = false;
 
+    public string currentColor;
+
+    public void GreenCrystal()
+    {
+        currentColor = "Green";
+    }
+
+    public void PurpleCrystal()
+    {
+        currentColor = "Purple";
+    }
+    
+    
     public void ActiverBrasero(GameObject other)
     {
         Debug.Log("Activation Brasero");
@@ -36,7 +49,7 @@ public class BraseroController : MonoBehaviour
         // Active le brasero (false = allumé dans ton Animator)
         if (braseroAnimator != null)
             Debug.Log("Activation du brassero Animation");
-            braseroAnimator.SetBool("Green", true);
+            braseroAnimator.SetBool(currentColor, true);
 
         // Lance la séquence des torches
         if (torches != null && torches.Length > 0)
@@ -49,8 +62,7 @@ public class BraseroController : MonoBehaviour
         foreach (var torch in torches)
         {
             //if (torch != null)
-                torch.SetBool("GobeletGreen", true);
-
+            torch.SetBool("Torch", true);
             yield return new WaitForSeconds(torchDelay);
         }
     }

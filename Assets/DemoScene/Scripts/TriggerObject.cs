@@ -7,6 +7,8 @@ public class TriggerObject : MonoBehaviour
     public UnityEvent<GameObject> OnTriggerEnterEvent;
     public UnityEvent<GameObject> OnTriggerExitEvent;
 
+    public BraseroController BraseroController;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         // "OnTriggerEnterEvent?" est équivaux a écrire if(OnTriggerEnterEvent != null) {...} 
@@ -15,6 +17,14 @@ public class TriggerObject : MonoBehaviour
         {
             Debug.Log("Collision avec CrystalVert");
             OnTriggerEnterEvent?.Invoke(collision.gameObject); 
+        }
+        else Debug.Log($"Collision avec {collision}");
+
+        if (collision.CompareTag("CrystalPurple"))
+        {
+            Debug.Log("Collision avec CrystalPurple");
+            OnTriggerEnterEvent?.Invoke(collision.gameObject);
+
         }
         else Debug.Log($"Collision avec {collision}");
 
