@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerActions inputActions;
 
-    private Vector2 moveInput;
+    public Vector2 moveInput;
 
     [SerializeField] private float speed = 50;
     [SerializeField] private float acceleration = 20;
+
+
 
     // Appeler en premier avant meme le Start()
     void Awake()
