@@ -2,17 +2,29 @@ using UnityEngine;
 
 public class RotatingObject : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 10;
+    [SerializeField] public float rotationSpeed = 10;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Animator animator;
 
     // Update is called once per frame
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+    }
+
+    public void StopRotation()
+    {
+        Debug.Log("Animator nul");
+        if (animator != null)
+        {
+            Debug.Log("isRotating True & RotationSpeed 0 ");
+            animator.SetBool("isRotating", true);
+            rotationSpeed = 0;
+        }
     }
 }

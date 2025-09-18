@@ -30,8 +30,11 @@ public class PuzzleController : MonoBehaviour
                 puzzleDone = true;
 
                 // Stop rotation
-                if (rotatingObject != null)
-                    rotatingObject.enabled = false;
+                if (rotatingObject.rotationSpeed > 0)
+                {
+                    Debug.Log("Active animation StopRotating");
+                    rotatingObject.StopRotation();
+                }
 
                 // Agrandit le pont
                 if (bridge != null)
