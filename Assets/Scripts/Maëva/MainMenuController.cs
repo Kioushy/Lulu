@@ -8,11 +8,12 @@ public class MainMenuController : MonoBehaviour
     private Button startButton;
     private Button settingButton;
     private Button quitButton;
+    private Button creditsButton;
+    public GameObject settingScreen;
 
     private GameObject transitionPanel;
     private float transitionTime = 5f;
 
- 
     private AudioSource musicAudioSource; // musique de fond
 
     private void Awake()
@@ -23,10 +24,13 @@ public class MainMenuController : MonoBehaviour
         startButton = canvas.transform.Find("HomeScreen/Start")?.GetComponent<Button>();
         settingButton = canvas.transform.Find("HomeScreen/Setting")?.GetComponent<Button>();
         quitButton = canvas.transform.Find("HomeScreen/Quit")?.GetComponent<Button>();
+        creditsButton = canvas.transform.Find("HomeScreen/Credits")?.GetComponent<Button> ();
+        settingScreen = canvas.transform.Find("HomeScreen/Setting/SettingScreen").gameObject;
 
         if (startButton != null) startButton.onClick.AddListener(OnStartClicked);
         if (settingButton != null) settingButton.onClick.AddListener(OnSettingClicked);
         if (quitButton != null) quitButton.onClick.AddListener(OnQuitClicked);
+        if (creditsButton != null) creditsButton.onClick.AddListener(OnCreditClicked); // finir la fonction
 
         // Panel de Transition
         transitionPanel = canvas.transform.Find("HomeScreen/TransitionPanel")?.gameObject;
@@ -43,7 +47,7 @@ public class MainMenuController : MonoBehaviour
             musicAudioSource.clip = bgMusic;
             musicAudioSource.loop = true; // musique en boucle
             musicAudioSource.playOnAwake = false;
-            musicAudioSource.volume = 0.3f; // volume de départ
+            musicAudioSource.volume = 0.1f; // volume de départ
             musicAudioSource.Play();
         }
         else
@@ -94,11 +98,8 @@ public class MainMenuController : MonoBehaviour
 
     private void OnSettingClicked()
     {
-        PauseMenuController pauseController = GameObject.FindFirstObjectByType<PauseMenuController>();
-        if (pauseController != null)
-        {
-            pauseController.OpenPauseMenu(() => pauseController.OpenSettings());
-        }
+        Debug.Log(settingScreen);
+        settingScreen.SetActive(true);
     }
 
     private void OnQuitClicked()
@@ -108,6 +109,11 @@ public class MainMenuController : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    private void OnCreditClicked()
+    {
+        return;
     }
 
     // Coroutine pour réduire le volume progressivement

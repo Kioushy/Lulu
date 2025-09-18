@@ -2,22 +2,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class PauseMenuController : MonoBehaviour
 {
     public static bool isPaused = false;
 
-    private GameObject pausePanel;
-    private GameObject settingsPanel;
+    public GameObject pausePanel;
+    public GameObject settingsPanel;
 
-    private Button resumeButton;
-    private Button settingButton;
-    private Button menuButton;
-    private Button settingExitButton;
+    public Button resumeButton;
+    public Button settingButton;
+    public Button menuButton;
+    public Button settingExitButton;
 
-    private Dropdown resolutionDropdown;
-    private Slider volumeSlider;
-    private Toggle fullscreenToggle;
+    public TMP_Dropdown resolutionDropdown;
+    public Slider volumeSlider;
+    public Toggle fullscreenToggle;
 
     private void Awake()
     {
@@ -66,12 +67,17 @@ public class PauseMenuController : MonoBehaviour
         Scene pauseScene = SceneManager.GetSceneByName("PauseMenu");
         if (!pauseScene.isLoaded) return;
 
+        //GameObject pauseMenuGameObject = pauseScene.GetRootGameObjects();
+        
+        //settingsPanel = gameObject.transform.Find("Canvas/MenuPause Panel/Setting/SettingScreen")?.gameObject;
+
         GameObject[] roots = pauseScene.GetRootGameObjects();
         foreach (GameObject root in roots)
         {
             // Panels
+            Debug.Log(root.name);
             pausePanel = root.transform.Find("MenuPause Panel")?.gameObject;
-            settingsPanel = root.transform.Find("SettingScreen")?.gameObject;
+            settingsPanel = root.transform.Find("MenuPause Panel/Setting/SettingScreen")?.gameObject;
 
             if (pausePanel != null) pausePanel.SetActive(true);
             if (settingsPanel != null) settingsPanel.SetActive(false);
@@ -91,26 +97,29 @@ public class PauseMenuController : MonoBehaviour
             menuButton?.onClick.AddListener(ReturnToMainMenu);
 
             // Bouton Setting Exit
-            settingExitButton = root.transform.Find("SettingScreen/Exit")?.GetComponent<Button>();
+            settingExitButton = root.transform.Find("MenuPause Panel/Setting/SettingScreen/Exit")?.GetComponent<Button>();
             settingExitButton?.onClick.RemoveAllListeners();
             settingExitButton?.onClick.AddListener(BackToPauseMenu);
 
             // Dropdown / Slider / Toggle
-            resolutionDropdown = root.transform.Find("SettingScreen/Resolution/Dropdown")?.GetComponent<Dropdown>();
+            // Find GameObject.GetComponent<Dropdown>();
+
+            //resolutionDropdown = root.transform.Find("MenuPause Panel/Setting/SettingScreen/Resolution/Dropdown")?.GetComponent<Dropdown>();
+            resolutionDropdown = root.transform.Find("MenuPause Panel/Setting/SettingScreen/Resolution/Dropdown")?.GetComponent<TMP_Dropdown>();
             if (resolutionDropdown != null)
             {
                 resolutionDropdown.onValueChanged.RemoveAllListeners();
                 resolutionDropdown.onValueChanged.AddListener(ChangeResolution);
             }
 
-            volumeSlider = root.transform.Find("SettingScreen/volume/Slider")?.GetComponent<Slider>();
+            volumeSlider = root.transform.Find("MenuPause Panel/Setting/SettingScreen/Volume/Slider")?.GetComponent<Slider>();
             if (volumeSlider != null)
             {
                 volumeSlider.onValueChanged.RemoveAllListeners();
                 volumeSlider.onValueChanged.AddListener(ChangeVolume);
             }
 
-            fullscreenToggle = root.transform.Find("SettingScreen/fullscreen/Toggle")?.GetComponent<Toggle>();
+            fullscreenToggle = root.transform.Find("MenuPause Panel/Setting/SettingScreen/Fullscreen/Toggle")?.GetComponent<Toggle>();
             if (fullscreenToggle != null)
             {
                 fullscreenToggle.onValueChanged.RemoveAllListeners();
@@ -132,9 +141,10 @@ public class PauseMenuController : MonoBehaviour
 
     public void OpenSettings()
     {
-        if (pausePanel == null || settingsPanel == null) SetupPauseMenu();
-        if (pausePanel != null) pausePanel.SetActive(false);
-        if (settingsPanel != null) settingsPanel.SetActive(true);
+        //if (pausePanel == null || settingsPanel == null) SetupPauseMenu();
+        //if (pausePanel != null) pausePanel.SetActive(false);
+        //if (settingsPanel != null) settingsPanel.SetActive(true);
+        settingsPanel.SetActive(true);
     }
 
     public void BackToPauseMenu()
