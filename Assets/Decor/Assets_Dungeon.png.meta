@@ -321,6 +321,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Assets_Dungeon_9
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 160
+        width: 152
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d66d753f474ff4ca6aabacff9642e2
+      internalID: 58178568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assets_Dungeon_10
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 324
+        width: 97
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 2, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5c69926ed38a3a44bc88d2df1ee5244
+      internalID: -1449445767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -337,6 +381,7 @@ TextureImporter:
     nameFileIdTable:
       Assets_Dungeon_0: -8691470019839153577
       Assets_Dungeon_1: 651924352523895910
+      Assets_Dungeon_10: -1449445767
       Assets_Dungeon_2: -7630965456815558527
       Assets_Dungeon_3: -835831876810665157
       Assets_Dungeon_4: 1149579977494082369
@@ -344,6 +389,7 @@ TextureImporter:
       Assets_Dungeon_6: 2588690254970693604
       Assets_Dungeon_7: -573940688731803810
       Assets_Dungeon_8: -2294462899915607148
+      Assets_Dungeon_9: 58178568
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
