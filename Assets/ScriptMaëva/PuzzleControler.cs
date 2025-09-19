@@ -17,6 +17,13 @@ public class PuzzleController : MonoBehaviour
     private bool puzzleDone = false;
     private bool crystalActivated = false;
 
+    private PurpleVoid purpleVoid;
+
+    void Awake()
+    {
+        purpleVoid = (PurpleVoid)FindFirstObjectByType(typeof(PurpleVoid));
+    }
+
     void Update()
     {
         if (!puzzleDone)
@@ -37,9 +44,12 @@ public class PuzzleController : MonoBehaviour
                 }
 
                 // Agrandit le pont
-                if (bridge != null)
+                if (bridge != null && purpleVoid != null)  
+                { 
                     bridge.ChangeStretch();
-
+                    purpleVoid.DeActivateCollider();
+                }
+               
                 Debug.Log("Pont déployé, rotation stoppée !");
             }
         }

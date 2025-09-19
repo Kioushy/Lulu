@@ -1711,6 +1711,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bdfaa084a91584ab59decc4db56419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  resumeButton: {fileID: 0}
+  settingButton: {fileID: 0}
+  menuButton: {fileID: 0}
+  settingExitButton: {fileID: 0}
+  resolutionDropdown: {fileID: 0}
+  volumeSlider: {fileID: 0}
+  fullscreenToggle: {fileID: 0}
 --- !u!1001 &1027055521882032093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1722,6 +1731,34 @@ PrefabInstance:
     - target: {fileID: 424281503043294990, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
       propertyPath: m_Name
       value: SettingScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 424281503043294990, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887951053151492470, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887951053151492470, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887951053151492470, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887951053151492470, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4210175658022489585, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4210175658022489585, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8741011957716692939, guid: 317682db917b3d9489a36a63e07a9711, type: 3}
       propertyPath: m_Pivot.x
