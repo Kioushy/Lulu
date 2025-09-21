@@ -8,6 +8,7 @@ public class BlackHoleController : MonoBehaviour
 
     [Header("Respawn")]
     public Transform respawnPoint;       // où renvoyer le player
+    //public Transform spawnBox;  
 
     [Header("Cover settings")]
     [Range(0.5f, 1f)]
@@ -46,8 +47,15 @@ public class BlackHoleController : MonoBehaviour
                 Rigidbody2D rb = other.attachedRigidbody;
                 if (rb != null) rb.linearVelocity = Vector2.zero;
             }
+
         }
+
+        //    if (other.CompareTag("Box"))
+        //    {
+        //        other.transform.position = spawnBox.position;
+        //    }
     }
+
 
     void OnTriggerStay2D(Collider2D other)
     {
