@@ -18,7 +18,7 @@ public class PressurePlateWithDoorSprite : MonoBehaviour
     public void Awake()
     {
         door = (LevelDoor)FindFirstObjectByType(typeof(LevelDoor));
-        Debug.Log(door);
+        //Debug.Log(door);
 
         if (door != null)
         {

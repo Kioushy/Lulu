@@ -3,16 +3,15 @@ using UnityEngine;
 public class BlackHoleController : MonoBehaviour
 {
     [Header("Sprites")]
-    public SpriteRenderer holeSprite;    // sprite du trou (invisible au départ)
-    public SpriteRenderer coverSprite;   // sprite "vue de dessus" quand le trou est bouché
-
-    [Header("Respawn")]
-    public Transform respawnPoint;       // où renvoyer le player
-    //public Transform spawnBox;  
+    public SpriteRenderer holeSprite;
+    public SpriteRenderer coverSprite;
 
     [Header("Cover settings")]
     [Range(0.5f, 1f)]
-    public float coverThreshold = 0.9f;  // % du trou à couvrir pour valider (0.9 = 90%)
+    public float coverThreshold = 0.9f;
+
+    [Header("Respawn Settings")]
+    public Transform playerRespawnPoint; // <- sp�cifique � CE trou
 
     bool isRevealed = false;
     bool isCovered = false;
@@ -25,14 +24,14 @@ public class BlackHoleController : MonoBehaviour
 
         holeCollider = GetComponent<Collider2D>();
         if (holeCollider == null)
-            Debug.LogError("[BlackHole] No Collider2D found on hole object. Add one and set IsTrigger = true.");
+            Debug.LogError("[BlackHole] Missing Collider2D (set as Trigger).");
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isCovered) return;
 
-        // Player : révéler le trou et respawn
+        // PLAYER
         if (other.CompareTag("Player"))
         {
             if (!isRevealed && holeSprite != null)
@@ -40,28 +39,23 @@ public class BlackHoleController : MonoBehaviour
                 holeSprite.enabled = true;
                 isRevealed = true;
             }
+            other.transform.position = playerRespawnPoint.position;
 
-            if (respawnPoint != null)
-            {
-                other.transform.position = respawnPoint.position;
-                Rigidbody2D rb = other.attachedRigidbody;
-                if (rb != null) rb.linearVelocity = Vector2.zero;
-            }
-
+            //Respawnable2D resp = other.GetComponent<Respawnable2D>();
+            //if (resp != null)
+            //{
+            //    if (playerRespawnPoint != null)
+            //        resp.RespawnAt(playerRespawnPoint); // respawn sp�cifique � ce trou
+            //    else
+            //        resp.Respawn(); // respawn global
+            //}
         }
-
-        //    if (other.CompareTag("Box"))
-        //    {
-        //        other.transform.position = spawnBox.position;
-        //    }
     }
-
 
     void OnTriggerStay2D(Collider2D other)
     {
         if (isCovered) return;
 
-        // Box : on teste recouvrement progressif
         if (other.CompareTag("Box"))
         {
             if (holeCollider == null) return;
@@ -69,7 +63,6 @@ public class BlackHoleController : MonoBehaviour
             Bounds hb = holeCollider.bounds;
             Bounds bb = other.bounds;
 
-            // intersection rectangle
             float xMin = Mathf.Max(hb.min.x, bb.min.x);
             float xMax = Mathf.Min(hb.max.x, bb.max.x);
             float yMin = Mathf.Max(hb.min.y, bb.min.y);
@@ -82,19 +75,14 @@ public class BlackHoleController : MonoBehaviour
             float holeArea = hb.size.x * hb.size.y;
             float coverage = holeArea > 0f ? overlapArea / holeArea : 0f;
 
-            // debug utile pour voir pourquoi ça ne valide pas
-            Debug.Log($"[BlackHole] coverage={coverage:F2} (overlap={overlapArea:F3}, holeArea={holeArea:F3}) for box {other.gameObject.name}");
-
             if (coverage >= coverThreshold)
             {
-                // validé : on bouche le trou
                 isCovered = true;
 
                 if (coverSprite != null) coverSprite.enabled = true;
                 if (holeSprite != null) holeSprite.enabled = false;
 
-                // détruire la box (ou SetActive(false) si tu préfères)
-                Destroy(other.gameObject);
+                Destroy(other.gameObject); // la box bouche le trou
             }
         }
     }
