@@ -148,8 +148,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.009025139, y: 0}
-  m_Radius: 0.043899436
+  m_Offset: {x: 0.003535533, y: 0}
+  m_Radius: 0.1189237
 --- !u!50 &5555975807822152839
 Rigidbody2D:
   serializedVersion: 5
@@ -210,3 +210,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: {fileID: 11400000, guid: 2314b14c7765ab541aab6ef58285030c, type: 2}
   manager: {fileID: 0}
+  playOnlyOnce: 1
