@@ -35,6 +35,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DialogueSkip"",
+                    ""type"": ""Button"",
+                    ""id"": ""338a1a8f-4c53-44bf-965c-036b8e1c2092"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bc70e41-171d-41a2-a167-b80ea156e974"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DialogueSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -118,6 +138,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // PlayerInput
         m_PlayerInput = asset.FindActionMap("PlayerInput", throwIfNotFound: true);
         m_PlayerInput_Move = m_PlayerInput.FindAction("Move", throwIfNotFound: true);
+        m_PlayerInput_DialogueSkip = m_PlayerInput.FindAction("DialogueSkip", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -185,11 +206,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerInput;
     private List<IPlayerInputActions> m_PlayerInputActionsCallbackInterfaces = new List<IPlayerInputActions>();
     private readonly InputAction m_PlayerInput_Move;
+    private readonly InputAction m_PlayerInput_DialogueSkip;
     public struct PlayerInputActions
     {
         private @PlayerActions m_Wrapper;
         public PlayerInputActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerInput_Move;
+        public InputAction @DialogueSkip => m_Wrapper.m_PlayerInput_DialogueSkip;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -202,6 +225,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @DialogueSkip.started += instance.OnDialogueSkip;
+            @DialogueSkip.performed += instance.OnDialogueSkip;
+            @DialogueSkip.canceled += instance.OnDialogueSkip;
         }
 
         private void UnregisterCallbacks(IPlayerInputActions instance)
@@ -209,6 +235,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @DialogueSkip.started -= instance.OnDialogueSkip;
+            @DialogueSkip.performed -= instance.OnDialogueSkip;
+            @DialogueSkip.canceled -= instance.OnDialogueSkip;
         }
 
         public void RemoveCallbacks(IPlayerInputActions instance)
@@ -238,5 +267,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public interface IPlayerInputActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnDialogueSkip(InputAction.CallbackContext context);
     }
 }

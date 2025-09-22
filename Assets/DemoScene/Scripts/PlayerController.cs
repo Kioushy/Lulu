@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 50;
     [SerializeField] private float acceleration = 20;
 
+    public DialogueManager dialogueManager;
 
 
     // Appeler en premier avant meme le Start()
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Enable();
 
         LinkActions();
+
+        dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
 
     void LinkActions()
@@ -33,18 +36,36 @@ public class PlayerController : MonoBehaviour
         inputActions.PlayerInput.Move.started += OnMove; //started correspond a quand le joueur apuis sur le bouton
         inputActions.PlayerInput.Move.performed += OnMove; //performed correspond a quand la valeur change (surtout utile avec les input de joystick)
         inputActions.PlayerInput.Move.canceled += OnMove; //canceled correspond a quand le joueur relache le bouton
+       
+        inputActions.PlayerInput.DialogueSkip.performed += OnDialogueSkip; // OnMove* à remplacer par la fonction qui skip le dialogue
     }
 
     // Fixed update est appelé a chaque update du moteur physique. Il est preférable de modifier a ce moment les positions des objects physiques
     void FixedUpdate()
     {
+        // bloque déplacement lors de dialogue
+        if (dialogueManager != null && dialogueManager.IsActive())
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         // Calcule de la nouvelle vélocité en fonction de input du joueur
         Vector2 newVelocity = Vector2.Lerp(rb.linearVelocity, moveInput * speed, Time.fixedDeltaTime * acceleration);
         rb.linearVelocity = newVelocity;
+
     }
 
     void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnDialogueSkip(InputAction.CallbackContext context)
+    {
+        if (dialogueManager != null && context.performed)
+        {
+            dialogueManager.NextLine();
+        }
     }
 }
