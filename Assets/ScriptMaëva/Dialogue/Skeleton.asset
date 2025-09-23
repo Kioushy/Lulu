@@ -15,7 +15,13 @@ MonoBehaviour:
   Lines:
   - speakerName: Skeleton
     avatar: {fileID: -7847247527806177844, guid: 6fabde08828727b4a82f334b7a48623e, type: 3}
-    text: "Hello my Dear, \nYou smell .. Alive ?"
+    text: 'Well, hello my dear... I am XXX.
+
+      You carry the scent of life...
+      how curious.'
   - speakerName: Skeleton
     avatar: {fileID: -7847247527806177844, guid: 6fabde08828727b4a82f334b7a48623e, type: 3}
-    text: Im gonna stick you till' Im dead ! Oh wait .. Am I not already dead ?
+    text: 'I''ll stick by your side until the end... '
+  - speakerName: Skeleton
+    avatar: {fileID: -7847247527806177844, guid: 6fabde08828727b4a82f334b7a48623e, type: 3}
+    text: Oh, silly me. I think I already passed that part, didn't I ?

@@ -8,13 +8,20 @@ public class DamageToPlayer : MonoBehaviour
     [Header("Respawn")]
     public Transform respawnPoint;
 
-    private bool canDamage = false; 
+    public bool canDamage = false;
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Saw") && collision.gameObject.CompareTag("Player"))
         {
             health.TakeDamage(damage, respawnPoint);
+        }
+       
+        if (canDamage && collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Joueur prend des dégats");
+            health.TakeDamage(damage, respawnPoint);
+            //canDamage = false;
         }
     }
 
@@ -30,15 +37,15 @@ public class DamageToPlayer : MonoBehaviour
         canDamage = false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
+    //void OnTriggerStay2D(Collider2D collision)
+    //{
        
-        if (canDamage && collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Joueur prend des dégats");
-            health.TakeDamage(damage, respawnPoint);
-            canDamage = false;
-        }
+    //    //if (canDamage && collision.gameObject.CompareTag("Player"))
+    //    //{
+    //    //    Debug.Log("Joueur prend des dégats");
+    //    //    health.TakeDamage(damage, respawnPoint);
+    //    //    canDamage = false;
+    //    //}
         
-    }
+    //}
 }

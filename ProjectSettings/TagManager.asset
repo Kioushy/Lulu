@@ -12,6 +12,7 @@ TagManager:
   - Caisse
   - BlackHole
   - Box
+  - Saw
   layers:
   - Default
   - TransparentFX

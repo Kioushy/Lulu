@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour
     private Button quitButton;
     private Button creditsButton;
     public GameObject settingScreen;
+    public GameObject creditsScreen;
+    private Button backButton;
 
     private GameObject transitionPanel;
     private float transitionTime = 5f;
@@ -39,7 +41,25 @@ public class MainMenuController : MonoBehaviour
         else
             Debug.LogWarning("TransitionPanel introuvable !");
 
-        // Musique de fond
+        // Panel de crédits
+        creditsScreen = canvas.transform.Find("HomeScreen/Credits/PanelCredits")?.gameObject;
+        if (creditsScreen != null)
+        {
+            creditsScreen.SetActive(false);
+
+
+            backButton = creditsScreen.transform.Find("Back")?.GetComponent<Button>();
+            if (backButton != null)
+            {
+                backButton.onClick.AddListener(CloseCreditsPanel);
+            }
+            else
+            {
+                Debug.LogWarning("BackButton introuvable !");
+            }
+        }
+
+                // Musique de fond
         musicAudioSource = gameObject.AddComponent<AudioSource>();
         AudioClip bgMusic = Resources.Load<AudioClip>("MainSound");
         if (bgMusic != null)
@@ -113,7 +133,14 @@ public class MainMenuController : MonoBehaviour
 
     private void OnCreditClicked()
     {
-        return;
+        if (creditsScreen != null)
+            creditsScreen.SetActive(true);
+    }
+
+    private void CloseCreditsPanel()
+    {
+        if (creditsScreen != null)
+            creditsScreen.SetActive(false);
     }
 
     // Coroutine pour réduire le volume progressivement

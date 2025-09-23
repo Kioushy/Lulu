@@ -15,4 +15,13 @@ MonoBehaviour:
   Lines:
   - speakerName: '######'
     avatar: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-    text: "Someone Here ?! \nPlease little one, reassmble my body on the floor"
+    text: "Someone here ?! \nPlease, little one, reassemble my body on the floor "
+  - speakerName: '######'
+    avatar: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    text: 'Yes ... You can help me.
+
+      Place my remains into the black hole,
+      and I shall return.
+
+      If the rock blocks your path, I will lend you my
+      strength to move it.'
