@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Collections; // important pour les coroutines
+using System.Collections;
+using Unity.VisualScripting; // important pour les coroutines
 
 public class MainMenuController : MonoBehaviour
 {
@@ -159,4 +160,16 @@ public class MainMenuController : MonoBehaviour
         musicAudioSource.volume = 0f;
         musicAudioSource.Stop();
     }
+
+    //private void Update()
+    //{
+    //    if (SceneManager.GetActiveScene().name == "MainMenu")
+    //        return;
+    //    if (Input.GetKeyDown(KeyCode.Escape))
+    //    {
+    //        if (!isPaused) 
+    //            (OpenMenuPause();
+    //        else ResumeGame();
+    //    }
+    //}
 }

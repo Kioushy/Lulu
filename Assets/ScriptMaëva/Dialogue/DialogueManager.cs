@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialoguePanel;
     public Image avatarImage;
     public TextMeshProUGUI dialogueText;
+    //public TextMeshProUGUI pressFText;
     
     private DialogueData currentDialogue;
     private int currentIndex;
